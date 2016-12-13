@@ -114,24 +114,28 @@ void loop() {
   analogWrite(greenpin, gammatable[(int)g]);                                                                                                                                                                       
   analogWrite(bluepin, gammatable[(int)b]);     
    
-   if ((red > 525 && red < 780) && (green > 450 && green < 500) && (blue > 245 && blue <375)){ 
+   if ((red > 3800 && red < 4250) && (green > 2700 && green < 3200) && (blue > 2700 && blue < 3075)){ 
     Serial.print("RED RED RED RED RED RED RED ");
     servo5.write(90);
     delay(500);
     servo5.write(90);
     delay(500);
     servo5.write(140);
-    
     return;
   }
-  if ((red > 450 && red < 520) && (green > 250 && green < 445) && (blue > 450 && blue < 650)){
+  if ((red > 2000 && red < 2500) && (green > 4600 && green < 5100) && (blue > 6000 && blue < 7200)){
     Serial.print("BLUE BLUE BLUE BLUE BLUE BLUE BLUE ");
     servo4.write(135);
     delay(500);
     servo4.write(90);
+    return;
+  }
+  //IT FINALLY WORKS \0/
+  if ((red > 3100 && red < 3600) && (green > 6000 && green < 7800) && (blue > 3600 && blue < 4300)){
+    Serial.print("GREEN GREEN GREEN GREEN GREEN GREEN GREEN ");
+    servo2.write(40);
     delay(500);
-    servo4.write(90);
-     
+    servo2.write(90);  
     return;
   }
 }
