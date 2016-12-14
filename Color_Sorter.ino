@@ -138,42 +138,28 @@ void loop() {
     servo2.write(90);  
     return;
   }
+  if ((red > 8500 && red < 9800) && (green > 4000 && green < 4450) && (blue > 3400 && blue < 3700)){
+    Serial.print("ORANGE ORANGE ORANGE ORANGE ORANGE ORANGE ORANGE ");
+    servo2.write(40);
+    delay(500);
+    servo2.write(90);  
+    return;
+  }
+  if ((red > 9500 && red < 11500) && (green > 7600 && green < 11000) && (blue > 4400 && blue < 5500)){
+    Serial.print("YELLOW YELLOW YELLOW YELLOW YELLOW YELLOW YELLOW ");
+    servo2.write(40);
+    delay(500);
+    servo2.write(90);  
+    return;
+  }
+   if ((red > 2000 && red < 2500) && (green > 2300 && green < 2700) && (blue > 2300 && blue < 2700)){
+    Serial.print("BROWN BROWN BROWN BROWN BROWN BROWN BROWN ");
+    servo2.write(40);
+    delay(500);
+    servo2.write(90);  
+    return;
+  }
 }
-
-//void ServoMove() { 
-//  if (int colorRed = 1) {
-//    servo5.write(90);
-//    delay(500);
-//    servo5.write(135); 
-//    delay(500);
-//    servo5.write(90);
-//    delay(500);
-//   return; 
-//  }
-//}
-
-
-// void Test() {
-//   servo1.write(90);
-//   servo2.write(90);
-//   servo3.write(90);
-//   servo4.write(90);
-//   servo5.write(90); 
-//   delay(500);            // Wait 1/2 of a second
-//   servo1.write(135);     // Turn the firve SG90 servos Right to 135 degrees
-//   servo2.write(135);     
-//   servo3.write(135);      
-//   servo4.write(135);      
-//   servo5.write(135); 
-//   delay(500);            // Wait 1/2 of a second
-//   servo1.write(90);      // Turn the five SG90 servos back to 90 degrees (center position)
-//   servo2.write(90);     
-//   servo3.write(90);      
-//   servo4.write(90);      
-//   servo5.write(90);
-//   delay(500);
-//   return;
-//}   
 //end control the servo's direction and the position of the motor 
 
 //Control the servo's speed  
