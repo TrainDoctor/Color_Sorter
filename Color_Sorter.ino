@@ -154,9 +154,12 @@ void loop() {
   }
    if ((red > 2000 && red < 2500) && (green > 2300 && green < 2700) && (blue > 2300 && blue < 2700)){
     Serial.print("BROWN BROWN BROWN BROWN BROWN BROWN BROWN ");
-    servo2.write(40);
-    delay(500);
-    servo2.write(90);  
+    servo2.write(45);
+    delay(1000);
+    servo4.write(40);
+    delay(1500);
+    servo4.write(90);
+    servo2.write(45);  
     return;
   }
 }
