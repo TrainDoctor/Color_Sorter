@@ -26,16 +26,21 @@ int servoAngle = 0;   // servo position in degrees
 // for a common anode LED, connect the common pin to +5V
 // for common cathode, connect the common to ground
 
+unsigned long averageColorStartRed, averageColorStartBlue, averageColorStartGreen;
+unsigned long averageColorFinishedRed,averageColorFinishedBlue, averageColorFinishedGreen;
+unsigned long averageColorElapsedRed, averageColorElapsedBlue, averageColorElapsedGreen;
+unsigned long start, finished, elapsed;
+
 // set to false if using a common cathode LED
 #define commonAnode false
 
 // our RGB -> eye-recognized gamma color
 byte gammatable[256];
 
-//Int's used as booleans to tigger servo action
-int colorRed;
-int colorBlue; 
-int colorGreen;  
+//
+bool colorRed;
+bool colorBlue; 
+bool colorGreen;  
 
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
    
@@ -78,8 +83,6 @@ void setup()
     //Serial.println(gammatable[i]);
   }
 }
- 
-
 
 void loop() {
   uint16_t clear, red, green, blue;
@@ -91,11 +94,24 @@ void loop() {
   tcs.getRawData(&red, &green, &blue, &clear);
 
   tcs.setInterrupt(true);  // turn off LED
-  
+    
   Serial.print("C:\t"); Serial.print(clear);
   Serial.print("\tR:\t"); Serial.print(red);
   Serial.print("\tG:\t"); Serial.print(green);
   Serial.print("\tB:\t"); Serial.print(blue);
+
+//    averageColorStartRed = int(red);
+//    averageColorStartBlue = int(blue);
+//    averageColorStartGreen = int(green);
+//    averageColorFinishedRed = int(red);
+//    averageColorFinishedBlue = int(blue);
+//    averageColorFinishedGreen = int(green);
+//    averageColorElapsedRed=averageColorFinishedRed-averageColorStartRed;
+//    averageColorElapsedBlue=averageColorFinishedBlue-averageColorStartBlue;
+//    averageColorElapsedGreen=averageColorFinishedGreen-averageColorStartGreen;
+//    Serial.print(averageColorElapsedRed + " ");
+//    Serial.print(averageColorElapsedBlue + " ");
+//    Serial.print(averageColorElapsedGreen + " ");
 
   // Figure out some basic hex code for visualization
   uint32_t sum = clear;
@@ -113,53 +129,100 @@ void loop() {
   analogWrite(redpin, gammatable[(int)r]);
   analogWrite(greenpin, gammatable[(int)g]);                                                                                                                                                                       
   analogWrite(bluepin, gammatable[(int)b]);     
-   
-   if ((red > 3800 && red < 4250) && (green > 2700 && green < 3200) && (blue > 2700 && blue < 3075)){ 
-    Serial.print("RED RED RED RED RED RED RED ");
-    servo5.write(90);
+
+    servo5.write(84);
+    servo4.write(90);
+    servo3.write(90);
+    servo2.write(90);
+    servo1.write(90);
+    return;
+    
+   if ((red > 3800 && red < 4250) && (green > 2700 && green < 3600) && (blue > 2600 && blue < 3075)){ 
+    Serial.print("\n RED RED RED RED RED RED RED ");
+    servo5.write(70);
+    servo1.write(40);
+    delay(1000);
+    servo5.write(70);
+    servo1.write(40);
     delay(500);
-    servo5.write(90);
-    delay(500);
-    servo5.write(140);
+//Reset Section
+   servo5.write(84);
+    servo4.write(90);
+    servo3.write(90);
+    servo2.write(90);
+    servo1.write(90);
     return;
   }
-  if ((red > 2000 && red < 2500) && (green > 4600 && green < 5100) && (blue > 6000 && blue < 7200)){
+  if ((red > 1500 && red < 2800) && (green > 4600 && green < 5100) && (blue > 4500 && blue < 7200)){
     Serial.print("BLUE BLUE BLUE BLUE BLUE BLUE BLUE ");
     servo4.write(135);
+    servo3.write(40);
+    delay(1500);
+    servo4.write(135);
+    servo3.write(40);
     delay(500);
+    servo5.write(84);
     servo4.write(90);
+    servo3.write(90);
+    servo2.write(90);
+    servo1.write(90);
     return;
   }
   //IT FINALLY WORKS \0/
   if ((red > 3100 && red < 3600) && (green > 6000 && green < 7800) && (blue > 3600 && blue < 4300)){
     Serial.print("GREEN GREEN GREEN GREEN GREEN GREEN GREEN ");
-    servo2.write(40);
+    servo2.write(110);
+    delay(1000);
+    servo2.write(110);
     delay(500);
-    servo2.write(90);  
+    servo5.write(84);
+    servo4.write(90);
+    servo3.write(90);
+    servo2.write(90);
+    servo1.write(90);
     return;
   }
-  if ((red > 8500 && red < 9800) && (green > 4000 && green < 4450) && (blue > 3400 && blue < 3700)){
+  if ((red > 5300 && red < 9800) && (green > 3300 && green < 4450) && (blue > 2700 && blue < 4500)){
     Serial.print("ORANGE ORANGE ORANGE ORANGE ORANGE ORANGE ORANGE ");
-    servo2.write(40);
+    servo1.write(115);
+    servo5.write(70);
+    delay(1000);
+    servo5.write(70);
+    servo1.write(115);
     delay(500);
-    servo2.write(90);  
+    servo5.write(84);
+    servo4.write(90);
+    servo3.write(90);
+    servo2.write(90);
+    servo1.write(90);
     return;
   }
-  if ((red > 9500 && red < 11500) && (green > 7600 && green < 11000) && (blue > 4400 && blue < 5500)){
+  if ((red > 6000 && red < 11500) && (green > 6500 && green < 11000) && (blue > 3900 && blue < 7500)){
     Serial.print("YELLOW YELLOW YELLOW YELLOW YELLOW YELLOW YELLOW ");
     servo2.write(40);
+    delay(1000);
+    servo2.write(40);
     delay(500);
-    servo2.write(90);  
+    servo5.write(84);
+    servo4.write(90);
+    servo3.write(90);
+    servo2.write(90);
+    servo1.write(90);
     return;
   }
    if ((red > 2000 && red < 2500) && (green > 2300 && green < 2700) && (blue > 2300 && blue < 2700)){
     Serial.print("BROWN BROWN BROWN BROWN BROWN BROWN BROWN ");
-    servo2.write(45);
+    servo4.write(135);
+    servo3.write(110);
     delay(1000);
-    servo4.write(40);
-    delay(1500);
+    servo4.write(135);
+    servo3.write(110);
+    delay(500);
+    servo5.write(84);
     servo4.write(90);
-    servo2.write(45);  
+    servo3.write(90);
+    servo2.write(90);
+    servo1.write(90);
     return;
   }
 }
